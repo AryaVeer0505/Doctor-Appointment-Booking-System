@@ -1,1 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&display=swap');
 @import "tailwindcss";
+
+.active hr{
+  display: block;
+}
+
+*{
+  font-family: Outfit;
+}
+
+::-webkit-scrollbar{
+  display:none;
+}
+#grid{
+  grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+}
+
+html{
+  scroll-behavior: smooth;
+}
