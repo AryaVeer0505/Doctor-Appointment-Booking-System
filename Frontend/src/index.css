@@ -19,3 +19,9 @@
 html{
   scroll-behavior: smooth;
 }
+
+@media (max-width:740px){
+  .active {
+    color: #5f6fff;
+  }
+}
