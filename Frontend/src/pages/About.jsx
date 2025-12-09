@@ -16,16 +16,16 @@ const About = () => {
       </div>
       <p className='text-3xl my-15 text-gray-700'>WHY CHOOSE US</p>
       <div className='flex flex-col sm:flex-row'>
-        <div className='border border-gray-400 flex flex-col gap-5 py-10 px-15 text-gray-600'>
-             <p className='text-black'>Efficiency</p>
+        <div className='border border-gray-400 flex flex-col gap-5 py-10 px-15 text-gray-600 hover:bg-[#5f6fff] hover:text-white transition-all duration-200'>
+             <p >Efficiency</p>
              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore, repudiandae.</p>
         </div>
-        <div className='border border-gray-400 flex flex-col gap-5 py-10 px-15 text-gray-600'>
-             <p className='text-black'>Concinience</p>
+        <div className='border border-gray-400 flex flex-col gap-5 py-10 px-15 text-gray-600 hover:bg-[#5f6fff] hover:text-white transition-all duration-200'>
+             <p >Concinience</p>
              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, modi.</p>
         </div>
-        <div className='border border-gray-400 flex flex-col gap-5 py-10 px-15 text-gray-600'>
-            <p className='text-black'>Personalization</p>
+        <div className='border border-gray-400 flex flex-col gap-5 py-10 px-15 text-gray-600 hover:bg-[#5f6fff] hover:text-white transition-all duration-200'>
+            <p >Personalization</p>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, non!</p>
         </div>
       </div>
