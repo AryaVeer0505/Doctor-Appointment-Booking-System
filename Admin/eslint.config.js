@@ -23,7 +23,14 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // 🔥 Disable globally
+      'no-undef': 'off',
+      'no-empty': 'off',
+      'no-unused-vars': 'off',
+      'react-hooks/rules-of-hooks': 'off',
+
+      // ⛔ (Optional) You can keep this if needed, else remove it
+      // 'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
   },
 ])

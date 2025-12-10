@@ -4,3 +4,6 @@
 *{
   font-family: Outfit;
 }
+::-webkit-scrollbar{
+  display:none;
+}
