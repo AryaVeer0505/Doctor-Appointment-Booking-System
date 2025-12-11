@@ -23,7 +23,7 @@ const userSchema=new mongoose.Schema({
             line2:""
         }
     },
-    geder:{
+    gender:{
         type:String,
        default:"Not Selected"
     },
