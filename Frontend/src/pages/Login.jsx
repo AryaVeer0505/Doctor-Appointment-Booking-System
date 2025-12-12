@@ -70,7 +70,7 @@ const Login = () => {
         </div>
         <div className='w-full'>
           <p>Password</p>
-          <input type="text" className='border border-zinc-300 rounded w-full p-2 mt-1' value={password} onChange={(e)=>setPassword(e.target.value)}/>
+          <input type="password" className='border border-zinc-300 rounded w-full p-2 mt-1' value={password} onChange={(e)=>setPassword(e.target.value)}/>
         </div>
         <button type='submit' className='bg-[#5f6fff] text-white py-2 w-full rounded my-5 cursor-pointer hover:bg-blue-100 hover:text-gray-500 transition-all duration-150'>{state==='Sign Up'?'Create Account':'Login'}</button>
        {
