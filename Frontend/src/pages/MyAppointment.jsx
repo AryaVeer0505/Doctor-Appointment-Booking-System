@@ -3,10 +3,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../context/AppContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const MyAppointment = () => {
   const {backendURL,token,getDoctorData}=useContext(AppContext)
   const [appointment,setAppointment]=useState([])
+  const navigate=useNavigate()
 
   const getUsersAppointment=async()=>{
     try {
@@ -32,6 +34,53 @@ const MyAppointment = () => {
        }
     } catch (error) {
         console.log(error)
+      toast.error(error.message)
+    }
+  }
+
+  const initPay=(order)=>{
+     if (!import.meta.env.VITE_RAZORPAY_KEY_ID) {
+    toast.error("Razorpay key missing");
+    return;
+  }
+     const options={
+       key:import.meta.env.VITE_RAZORPAY_KEY_ID,
+       amount:order.amount,
+       currency:order.currency,
+       name:'Appointmnet Payment',
+       description:'Appointment Payment',
+       order_id:order.id,
+       receipt:order.receipt,
+       handler:async(response)=>{
+        console.log(response)
+        try {
+          const {data}=await axios.post(`${backendURL}/api/user/verifyRazorpay`,response,{headers:{token}})
+          if(data.success){
+            getUsersAppointment()
+            navigate('/myAppointment')
+          }
+        } catch (error) {
+           console.log(error)
+      toast.error(error.message)
+        }
+       }
+     }
+     const rzp=new window.Razorpay(options)
+     rzp.open()
+  }
+
+  const appointmentRazorpay=async(appointmentId)=>{
+    try {
+      const {data}=await axios.post(`${backendURL}/api/user/payment-razorpay`,{appointmentId},{headers:{token}})
+      if(data.success){
+        initPay(data.order)
+        console.log("Order from backend:", data.order);
+
+      }else{
+        toast.error(data.message)
+       }
+    } catch (error) {
+       console.log(error)
       toast.error(error.message)
     }
   }
@@ -63,8 +112,9 @@ useEffect(()=>{
 
               </div>
               <div className='flex flex-col items-end justify-end gap-2'>
-                   {!item.cancelled &&<button className='sm:min-w-48  py-2 px-14 border rounded bg-[#5f6fff] text-white w-full cursor-pointer hover:scale-105 transition-all duration-150'>Pay Here</button>}
-                  {!item.cancelled && <button onClick={()=>cancleAppointment(item._id)} className='sm:min-w-48 w-full py-2 px-14 border rounded bg-gray-100 text-black  cursor-pointer hover:scale-105 transition-all duration-150'>Cancel appointment</button>}
+                {!item.cancelled && item.payment && <button className='sm:min-w-48  py-2 px-14 border rounded bg-green-500 text-white w-full'>Paid</button>}
+                   {!item.cancelled &&<button onClick={()=>appointmentRazorpay(item._id)} className='sm:min-w-48  py-2 px-14 border rounded bg-[#5f6fff] text-white w-full cursor-pointer hover:scale-105 transition-all duration-150'>Pay Here</button>}
+                  {!item.cancelled && !item.payment && <button onClick={()=>cancleAppointment(item._id)} className='sm:min-w-48 w-full py-2 px-14 border rounded bg-gray-100 text-black  cursor-pointer hover:scale-105 transition-all duration-150'>Cancel appointment</button>}
                   {item.cancelled && <button className='sm:min-w-48 w-full border border-red-500 rounded py-2 px-10 text-red-500 '>Appointment Cancelled</button>}
                   
               </div>
