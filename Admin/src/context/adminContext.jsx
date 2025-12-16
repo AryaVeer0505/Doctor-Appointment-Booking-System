@@ -12,6 +12,8 @@ const AdminContextProvider=(props)=>{
 
       const [doctors,setDoctors]=useState([])
 
+      const [dashData,setDashData]=useState(false)
+
       const currency="$"
       const getAllDoctors=async()=>{
         try {
@@ -63,9 +65,21 @@ const AdminContextProvider=(props)=>{
              toast.error(error.message)
         }
       }
+      const getDashData=async()=>{
+    try {
+        const {data}=await axios.get(`${backendURL}/api/admin/dashboard`,{headers:{atoken:aToken}})
+        if(data.success){
+            setDashData(data.dashData)
+        }else{
+            toast.error(data.message)
+        }
+    } catch (error) {
+        toast.error(error.message)
+    }
+}
     const value={
         aToken,setAtoken,
-        backendURL,getAllDoctors,doctors,changeAvailability,appointments,getAllAppointments,currency,cancelAppointment
+        backendURL,getAllDoctors,doctors,changeAvailability,appointments,getAllAppointments,currency,cancelAppointment,getDashData,dashData
     }
 
     return (
@@ -74,5 +88,7 @@ const AdminContextProvider=(props)=>{
         </AdminContext.Provider>
     )
 }
+
+
 
 export default AdminContextProvider

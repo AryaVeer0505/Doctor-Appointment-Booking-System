@@ -4,6 +4,7 @@ import {v2 as cloudinary} from 'cloudinary'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import appointmentModel from '../models/appointmentModel.js'
+import userModel from '../models/userModel.js'
 const addDoctor=async(req,res)=>{
     try {
         const {name,email,password,image,address,degree,speciality,about,experience,fees}=req.body
@@ -154,4 +155,29 @@ const appointmentCancel = async (req, res) => {
 };
 
 
-export {addDoctor,adminLogin,allDoctors,adminAppointments,appointmentCancel}
+const adminDashboard=async(req,res)=>{
+    try {
+        const users=await userModel.find({})
+        const doctors=await doctorModel.find({})
+        const appointments=await appointmentModel.find({})
+
+        const dashData={
+            doctors:doctors.length ,
+            appointments:appointments.length,
+            patients:users.length,
+            latestAppointment:appointments.reverse().slice(0,5)
+        }
+        res.json({
+            success:true,
+            dashData
+        })
+    } catch (error) {
+      res.json({
+      success: false,
+      message: error.message,
+    });  
+    }
+}
+
+
+export {addDoctor,adminLogin,allDoctors,adminAppointments,appointmentCancel,adminDashboard}
