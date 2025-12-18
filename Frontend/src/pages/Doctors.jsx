@@ -29,7 +29,7 @@ const Doctors = () => {
       <div className="flex flex-col sm:flex-row items-start mt-5 gap-5">
         <button className={`py-1 px-3 rounded border text-sm transition-all sm:hidden ${showFilter?'bg-[#5f6fff] text-white':''}`} onClick={()=>setShowFilter(p=>!p)}>Filters</button>
         <div className={`flex flex-col text-gray-600 gap-4 text-sm ${showFilter?'flex':'hidden sm:flex'}`}>
-          <p className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer ${speciality==='General physician'?'bg-indigo-100 text-black':""}`} onClick={()=>speciality==='General physician'?navigate('/doctors'):navigate('/doctors/General physician')}>General physician</p>
+          <p className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer ${speciality==='General physician'?'bg-indigo-100 text-black':""}`} onClick={()=>speciality==='General Physician'?navigate('/doctors'):navigate('/doctors/General Physician')}>General physician</p>
           <p className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer ${speciality==='Gynecologist'?'bg-indigo-100 text-black':""}`} onClick={()=>speciality==='Gynecologist'?navigate('/doctors'):navigate('/doctors/Gynecologist')}>Gynecologist</p>
           <p className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer ${speciality==='Dermatologist'?'bg-indigo-100 text-black':""}`} onClick={()=>speciality==='Dermatologist'?navigate('/doctors'):navigate('/doctors/Dermatologist')}>Dermatologist</p>
           <p className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer ${speciality==='Pediatricians'?'bg-indigo-100 text-black':""}`} onClick={()=>speciality==='Pediatricians'?navigate('/doctors'):navigate('/doctors/Pediatricians')}>Pediatricians</p>
@@ -45,10 +45,9 @@ const Doctors = () => {
             >
               <img className="bg-blue-50" src={item.image} alt="" />
               <div className="p-4">
-                <div className="flex items-center gap-2 text-sm text-center text-green-500">
-                  <p className="w-2 h-2 rounded-full bg-green-500"></p>
-                  <p>Available</p>
-                </div>
+                 <div className={`flex items-center gap-2 text-sm text-center ${item.available ? 'text-green-500':'text-red-500'} `}>
+                        <p className={`w-2 h-2 rounded-full ${item.available ? ' bg-green-500 text-green-500':'bg-red-500 text-red-500'}`}></p><p>{item.available?'Available':'Not Available'}</p>
+                    </div>
                 <p className="text-gray-900 text-lg text-center">{item.name}</p>
                 <p className="text-gray-600 text-sm">{item.speciality}</p>
               </div>

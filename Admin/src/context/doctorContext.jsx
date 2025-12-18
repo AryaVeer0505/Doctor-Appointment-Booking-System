@@ -12,6 +12,11 @@ const DoctorContextProvider=(props)=>{
 
       const [appointments,setAppointments]=useState([])
 
+      const [dashData,setDashData]=useState(false)
+
+      const [profileData,setProfileData]=useState(false)
+
+
       const getAppointments=async()=>{
         try {
             const {data}=await axios.get(`${backendURL}/api/doctor/doctor-appointments`,{headers:{dtoken:dToken}})
@@ -57,8 +62,39 @@ const DoctorContextProvider=(props)=>{
         }
         }
 
+        const getDashData=async(req,res)=>{
+            try {
+                const {data}=await axios.get(`${backendURL}/api/doctor/doctor-dashboard`,{headers:{dtoken:dToken}})
+                if(data.success){
+                    setDashData(data.dashData)
+                    console.log(data.dashData)
+                }else{
+                toast.error(data.message)
+            }
+            } catch (error) {
+                 console.log(error)
+            toast.error(error.message)
+            }
+        }
+
+        const doctorProfile=async()=>{
+            try {
+                const {data}=await axios.get(`${backendURL}/api/doctor/doctor-profile`,{headers:{dtoken:dToken}})
+                if(data.success){
+                    setProfileData(data.profileData)
+                    console.log(data.profileData)
+                }else{
+                toast.error(data.message)
+                }
+            } catch (error) {
+                 console.log(error)
+            toast.error(error.message)
+            }
+        }
+
+      
     const value={
-        backendURL,dToken,setDtoken,appointments,getAppointments,cancelAppointment,completeAppointment
+        backendURL,dToken,setDtoken,appointments,getAppointments,cancelAppointment,completeAppointment,getDashData,dashData,setDashData,doctorProfile,setProfileData,profileData
     }
 
     return (

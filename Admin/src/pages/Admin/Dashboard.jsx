@@ -5,9 +5,10 @@ import { assets } from "../../assets/assets_admin/assets";
 import { AppContext } from "../../context/appContext";
 
 const Dashboard = () => {
-  const { aToken, dashData, getDashData,cancelAppointment } = useContext(AdminContext);
+  const { aToken, dashData, getDashData, cancelAppointment } =
+    useContext(AdminContext);
 
-  const {slotDateFormat}=useContext(AppContext)
+  const { slotDateFormat } = useContext(AppContext);
   useEffect(() => {
     if (aToken) {
       getDashData();
@@ -49,14 +50,27 @@ const Dashboard = () => {
           </div>
           <div className="pt-4 border  border-t-0">
             {dashData.latestAppointment.map((item, index) => (
-              <div className="flex items-center gap-3 hover:bg-gray-100 px-6 py-3" key={index}>
-                <img className="rounded-full w-10" src={item.docData.image} alt="" />
+              <div
+                className="flex items-center gap-3 hover:bg-gray-100 px-6 py-3"
+                key={index}
+              >
+                <img
+                  className="rounded-full w-10"
+                  src={item.docData.image}
+                  alt=""
+                />
                 <div className="flex-1 text-sm">
                   <p className="font-medium">{item.docData.name}</p>
-                  <p className="text-gray-600">{slotDateFormat(item.slotDate)}</p>
+                  <p className="text-gray-600">
+                    {slotDateFormat(item.slotDate)}
+                  </p>
                 </div>
                 {item.cancelled ? (
                   <p className="text-red-500 text-xs font-medium">Cancelled</p>
+                ) : item.isCompleted ? (
+                  <p className="text-green-500 text-xs font-medium">
+                    Completed
+                  </p>
                 ) : (
                   <img
                     onClick={() => cancelAppointment(item._id)}

@@ -112,11 +112,12 @@ useEffect(()=>{
 
               </div>
               <div className='flex flex-col items-end justify-end gap-2'>
-                {!item.cancelled && item.payment && <button className='sm:min-w-48  py-2 px-14 border rounded bg-green-500 text-white w-full'>Paid</button>}
+                {!item.cancelled && item.payment && !item.isCompleted && <button className='sm:min-w-48  py-2 px-14 border rounded bg-green-500 text-white w-full'>Paid</button>}
                 
-                   {!item.cancelled &&<button onClick={()=>appointmentRazorpay(item._id)} className='sm:min-w-48  py-2 px-14 border rounded bg-[#5f6fff] text-white w-full cursor-pointer hover:scale-105 transition-all duration-150'>Pay Here</button>}
-                  {!item.cancelled && !item.payment && <button onClick={()=>cancelAppointment(item._id)} className='sm:min-w-48 w-full py-2 px-14 border rounded bg-gray-100 text-black  cursor-pointer hover:scale-105 transition-all duration-150'>Cancel appointment</button>}
-                  {item.cancelled && <button className='sm:min-w-48 w-full border border-red-500 rounded py-2 px-10 text-red-500 '>Appointment Cancelled</button>}
+                   {!item.cancelled && !item.isCompleted &&  <button onClick={()=>appointmentRazorpay(item._id)} className='sm:min-w-48  py-2 px-14 border rounded bg-[#5f6fff] text-white w-full cursor-pointer hover:scale-105 transition-all duration-150'>Pay Here</button>}
+                  {!item.cancelled && !item.payment && !item.isCompleted &&  <button onClick={()=>cancelAppointment(item._id)} className='sm:min-w-48 w-full py-2 px-14 border rounded bg-gray-100 text-black  cursor-pointer hover:scale-105 transition-all duration-150'>Cancel appointment</button>}
+                  {item.cancelled && !item.isCompleted &&  <button className='sm:min-w-48 w-full border border-red-500 rounded py-2 px-10 text-red-500 '>Appointment Cancelled</button>}
+                  {item.isCompleted &&  <button className='sm:min-w-48 w-full border border-green-500 rounded py-2 px-10 text-green-500 '>Completed</button>}
                   
               </div>
               
